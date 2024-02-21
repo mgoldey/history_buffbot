@@ -19,37 +19,45 @@ This system consists of the following:
 ## Data ingestion
 
 1. Download files from Wikipedia
-```bash
-poetry run python3 dl_scripts/download_data.py
-```
+    ```bash
+    poetry run python3 dl_scripts/download_data.py
+    ```
 1. Remove less helpful files
-```bash
-bash dl_scripts/remove_short_files.sh downloaded_articles/*.txt
-```
+    ```bash
+    bash dl_scripts/remove_short_files.sh downloaded_articles/*.txt
+    ```
 1. Install poetry env
-```bash
-poetry install
-```
+    ```bash
+    poetry install
+    ```
 1. Download the huggingface model - N.B. this requires your credentials in the environment
-```bash
-huggingface-cli download TheBloke/Wizard-Vicuna-7B-Uncensored-GGUF Wizard-Vicuna-7B-Uncensored.Q4_K_M.gguf --local-dir models --local-dir-use-symlinks False
-```
+    ```bash
+    huggingface-cli download TheBloke/Wizard-Vicuna-7B-Uncensored-GGUF Wizard-Vicuna-7B-Uncensored.Q4_K_M.gguf --local-dir models --local-dir-use-symlinks False
+    ```
 1. Create the docker image locally
-```bash
-docker build . -t history_buffbot
-```
+    ```bash
+    docker build . -t history_buffbot
+    ```
 1. Launch the stack
-```bash
-poetry run docker-compose up -d
-```
+    ```bash
+    poetry run docker-compose up -d
+    ```
 1. Upload the reference files
-```bash
-poetry run python3 db_scripts/upload_data.py downloaded_articles
-```
+    ```bash
+    poetry run python3 db_scripts/upload_data.py downloaded_articles
+    ```
 
 ## Application usage
 
 Now navigate to [the streamlit application in your browser](http://localhost:8501) and you should be able to formulate short questions about historical events 
 
 Example video!
-![Demo](demos/history_buffbot_demo.mp4)
+[![Demo](demos/still_frame.png)](demos/history_buffbot_demo.mp4)
+
+
+### Caveat
+As this is a tool for demonstrating how to perform retrieval augmented generation rather than a production ready prototype, be aware that you may have unreliable results with such a small model. 
+
+I recommend consulting one of the community leaderboards, such as one of the following, for model suitable for production.
+- [toloka's leaderboard](https://toloka.ai/llm-leaderboard/)
+- [LudwigStumpp's leaderboard](https://github.com/LudwigStumpp/llm-leaderboard)
