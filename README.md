@@ -50,3 +50,6 @@ poetry run python3 db_scripts/upload_data.py downloaded_articles
 ## Application usage
 
 Now navigate to [the streamlit application in your browser](http://localhost:8501) and you should be able to formulate short questions about historical events 
+
+Example video!
+![Demo](demos/history_buffbot_demo.mp4)
